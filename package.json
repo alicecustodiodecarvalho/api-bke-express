@@ -1,0 +1,25 @@
+{
+  "name": "api-bke-express",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alicecustodiodecarvalho/api-bke-express.git"
+  },
+  "keywords": [
+    "api",
+    "express",
+    "zod",
+    "mvc"
+  ],
+  "author": "Alice Custodio",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/alicecustodiodecarvalho/api-bke-express/issues"
+  },
+  "homepage": "https://github.com/alicecustodiodecarvalho/api-bke-express#readme"
+}
