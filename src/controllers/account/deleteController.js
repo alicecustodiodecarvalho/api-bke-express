@@ -1,5 +1,18 @@
-const del = (req, res) => {
-    res.json({message: "Rota de DELETE Account"})
+import { deleteByIdAccount } from "../../models/accountModel.js"
+
+const del = async (req, res) => {
+    const {id} = req.params
+    const account = await deleteByIdAccount(+id)
+
+    if(!account)
+        return res.status(404).json({
+            error: `Conta com id ${id}, não encontrado!`
+        })
+
+    return res.json({
+        success: "Conta deletada com sucesso!",
+        account
+    })
 }
 
 export default del
