@@ -14,6 +14,12 @@ app.get('/', (req, res) => {res.json({message: "Bem vindo a API"})})
 app.use('/auth', authRouter)
 app.use('/account', accountRouter)
 
+app.use((err, req, res) => {
+    console.error(err)
+    return res.status(500).json({
+        error: "Erro no servidor, verifique sua reposição"
+    })
+}) 
 
 app.listen(PORT, () => {
     // if(ENVIRONMENT == 'production')
