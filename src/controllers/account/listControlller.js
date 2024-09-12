@@ -1,6 +1,6 @@
 import { listAccounts } from "../../models/accountModel.js"
 
-const list = async (req, res) => {
+const list = async (req, res, next) => {
     try {
         const accounts = await listAccounts()
         return res.json({
@@ -8,10 +8,7 @@ const list = async (req, res) => {
             accounts
         })
     } catch (error) {
-        console.error(error)
-        return res.status(500).json({
-            error: "Erro no servidor"
-        })
+        next(error)
     }
 }
 

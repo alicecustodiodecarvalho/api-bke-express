@@ -1,6 +1,6 @@
 import { getByIdAccount } from "../../models/accountModel.js"
 
-const getById = async (req, res) => {
+const getById = async (req, res, next) => {
     // const id = req.params.id
     const { id } = req.params
     try {
@@ -16,10 +16,7 @@ const getById = async (req, res) => {
             account
         })
     } catch (error) {
-        console.error(error)
-        return res.status(500).json({
-            error: "Erro no servidor"
-        })
+        next(error)
     }
 }
 

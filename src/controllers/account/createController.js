@@ -1,6 +1,6 @@
 import { create } from "../../models/accountModel.js"
 
-const createController = async (req, res) => {
+const createController = async (req, res, next) => {
     try {
         const account = req.body
         const result = await create(account)
@@ -15,10 +15,7 @@ const createController = async (req, res) => {
             account: result
         })
     } catch (error) {
-        console.error(error)
-        return res.status(500).json({
-            error: "Erro no servidor"
-        })
+        next(error)
     }
 }
 

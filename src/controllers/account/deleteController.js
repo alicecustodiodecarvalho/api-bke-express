@@ -1,24 +1,22 @@
 import { deleteAccount } from "../../models/accountModel.js"
 
-const del = async (req, res) => {
+const remove = async (req, res, next) => {
     const { id } = req.params
     try {
         const account = await deleteAccount(+id)
 
         return res.json({
-            success: "Conta deletada com sucesso!",
+            message: "Conta deletada com sucesso",
             account
         })
     } catch (error) {
         console.error(error)
-        if(error?.code === 'P2025')
+        if (error?.code === 'P2025')
             return res.status(404).json({
-                error: `Conta com id ${id}, não encontrado!`
+                error: `Conta com id ${id}, não existente!`
             })
-        return res.status(500).json({
-            error: `Erro no servidor!`
-        })
+        next(error)
     }
 }
 
-export default del
+export default remove
