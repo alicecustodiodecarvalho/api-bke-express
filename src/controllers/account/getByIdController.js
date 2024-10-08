@@ -1,12 +1,21 @@
-import { getByIdAccount } from "../../models/accountModel.js"
+import { getByIdAccount, accountValidateId } from "../../models/accountModel.js"
 
 const getById = async (req, res, next) => {
-    // const id = req.params.id
-    const { id } = req.params
-    try {
-        const account = await getByIdAccount(+id)
+    //const id = req.params.id
+    try{ 
+        const {id} = req.params
 
-        if (!account)
+        const accountValidated = accountValidateId(+id)
+
+        if(accountValidated?.error)
+            return res.status(401).json({
+                error: "Erro ao buscar um serviço!",
+                fieldErrors: accountValidated.error.flatten().fieldErrors
+            })
+
+        const account = await getByIdAccount(accountValidated.data.id)
+
+        if(!account)
             return res.status(404).json({
                 error: `Conta com o id ${id}, não encontrado!`
             })
@@ -15,7 +24,7 @@ const getById = async (req, res, next) => {
             success: "Conta encontrada com sucesso!",
             account
         })
-    } catch (error) {
+    } catch(error) {
         next(error)
     }
 }
